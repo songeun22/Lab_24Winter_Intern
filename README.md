@@ -2,7 +2,7 @@
 
 ## 24 Winter 
 Seeking methods for covariate selection based on traditional variable selection methods(e.g. forward selection). \
-Forward selection with AdaFDR(```adafdr_fwd()```) is uploaded above: check fwd_selection.py 
+- Forward selection with AdaFDR(```adafdr_fwd()```) is uploaded above: check fwd_selection.py 
 
 
 ##### Citation Information 
