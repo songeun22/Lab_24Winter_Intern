@@ -1,7 +1,6 @@
 # [Lab Intern] FDR Control Based on Covariates 
 
-### 24 Winter 
---- 
+## 24 Winter 
 Seeking methods for covariate selection based on traditional variable selection methods(e.g. forward selection). \
 Forward selection with AdaFDR(```adafdr_fwd()```) is uploaded above: check fwd_selection.py 
 
