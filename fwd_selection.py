@@ -5,7 +5,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def adafdr_rej_num(p, x, alpha):
-
+  # ``` returns number of discoveries through AdaFDR```
+  # p: numpy (n, ) array of p-values
+  # x: numpy (n, d) array of covariates
+  # alpha: nominal fdr 
+  
   res =  md.adafdr_test(p, x, alpha = alpha, output_folder = None)
   ths = res[1]
 
@@ -14,12 +18,17 @@ def adafdr_rej_num(p, x, alpha):
 
 
 def adafdr_fwd(p, cov, alpha, max_dim = float('inf')):
-  # p: p-value (n, ) numpy, cov: covariate (n, d) dataframe, alpha: nominal fdr
+  # ```returns results of forward selection based on number of discoveries by AdaFDR```
+  # ```results consist a selected list of covariates, and dimension of it, final number of discoveries of it, 
+  #    and dataframe of rejections made by all possible covariates.```
+  # p: numpy (n, ) array of p-values
+  # cov: (n, d) dataframe of all possible covariates
+  # alpha: nominal fdr 
+  # max_dim: maximum of covariate dimension to select 
+  
   d = cov.shape[1]
   iter = 0
   max_idx = np.nan
-
-  # !!! raise error
 
   if max_dim > d:
     max_dim = d
@@ -43,7 +52,7 @@ def adafdr_fwd(p, cov, alpha, max_dim = float('inf')):
     res_df.loc[iter] = rej_list
 
     max_rej = max(rej_list)
-    max_idx = rej_list.index(max_rej)  #!!!! 같은 max 존재할 때는 그냥 첫번째 cov 선택하는 알고리즘??
+    max_idx = rej_list.index(max_rej)  
 
     max_idx_list.append(max_idx)
     max_rej_list.append(max_rej)
@@ -61,8 +70,8 @@ def adafdr_fwd(p, cov, alpha, max_dim = float('inf')):
   return res
 
 
-def summary_fwd(res):
-  # res: result from adafdr_fwd()
+def summary_fwd(res, heatmap = True):
+  # ``` prints out the summary of results obtained by adafdr_fwd().```
 
   keys = list(res.keys())
 
@@ -71,6 +80,7 @@ def summary_fwd(res):
   print(f'Total Rejections: {res[keys[2]]}')
   print('='*30 + '\n')
 
-  plt.figure(figsize=(20, res[keys[1]]))
-  sns.heatmap(res[keys[3]], cmap = 'Greys', square = False)
-  plt.show()
+  if heatmap == True: 
+    plt.figure(figsize=(20, res[keys[1]]))
+    sns.heatmap(res[keys[3]], cmap = 'Greys', square = False)
+    plt.show()
