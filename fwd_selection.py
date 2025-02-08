@@ -57,7 +57,7 @@ def adafdr_fwd(p, cov, alpha, max_dim = float('inf')):
     max_idx_list.append(max_idx)
     max_rej_list.append(max_rej)
 
-    if (iter != 0) & (max_idx_list[iter] <= max_idx_list[iter - 1]):
+    if (iter != 0) & (max_rej_list[iter] <= max_rej_list[iter - 1]):
       max_idx_list.pop()
       max_rej_list.pop()
       break
